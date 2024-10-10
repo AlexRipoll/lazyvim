@@ -121,7 +121,10 @@ return {
     opts = {
       ensure_installed = {
         "bash",
+        "dockerfile",
         "html",
+        "go",
+        "helm",
         "javascript",
         "json",
         "lua",
@@ -130,6 +133,9 @@ return {
         "python",
         "query",
         "regex",
+        "rust",
+        "solidity",
+        "toml",
         "tsx",
         "typescript",
         "vim",
@@ -138,19 +144,19 @@ return {
     },
   },
 
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
-  -- would overwrite `ensure_installed` with the new value.
-  -- If you'd rather extend the default config, use the code below instead:
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
-    end,
-  },
+  -- -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
+  -- -- would overwrite `ensure_installed` with the new value.
+  -- -- If you'd rather extend the default config, use the code below instead:
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, opts)
+  --     -- add tsx and treesitter
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "tsx",
+  --       "typescript",
+  --     })
+  --   end,
+  -- },
 
   -- the opts function can also be used to change the default opts:
   {
@@ -186,7 +192,32 @@ return {
         "stylua",
         "shellcheck",
         "shfmt",
-        "flake8",
+        "gopls",
+        "goimports",
+        "gofumpt",
+        "delve", -- Go debugger
+      },
+    },
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      opts.sources = vim.list_extend(opts.sources or {}, {
+        nls.builtins.code_actions.gomodifytags,
+        nls.builtins.code_actions.impl,
+        nls.builtins.formatting.goimports,
+        nls.builtins.formatting.gofumpt,
+      })
+    end,
+  },
+
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports", "gofumpt" },
       },
     },
   },
