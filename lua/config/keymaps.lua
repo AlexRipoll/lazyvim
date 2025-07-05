@@ -19,6 +19,12 @@ map("i", "<C-l>", "<Right>", { desc = "Move right" })
 map("i", "<C-j>", "<Down>", { desc = "Move down" })
 map("i", "<C-k>", "<Up>", { desc = "Move up" })
 
+-- navigate within Tmux session
+map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Move left" })
+map("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Move right" })
+map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Move down" })
+map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Move up" })
+
 -- Copy all
 map("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
 
